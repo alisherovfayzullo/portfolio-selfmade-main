@@ -1,0 +1,153 @@
+<!-- <!DOCTYPE html>
+<html lang="uz">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Matematika O‘yini</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background: #f4f4f9;
+      }
+      .container {
+        background: white;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        text-align: center;
+        width: 400px;
+      }
+      h1 {
+        color: #333;
+      }
+      #question {
+        font-size: 24px;
+        margin: 20px 0;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+        margin-top: 20px;
+      }
+      .grid button {
+        padding: 15px;
+        font-size: 18px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        cursor: pointer;
+        background: #e0e0e0;
+      }
+      .grid button:hover {
+        background: #d4edda;
+      }
+      .scoreboard {
+        margin-top: 20px;
+        font-size: 18px;
+      }
+      #gameArea {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>📚 Matematika o‘yini</h1>
+      <div id="startArea">
+        <button id="startBtn">▶️ Boshlash</button>
+      </div>
+
+      <div id="gameArea">
+        <div id="question">Savol...</div>
+        <div class="grid" id="options"></div>
+        <div class="scoreboard">
+          <p id="score">To‘g‘ri: 0</p>
+          <p id="mistakes">Xato: 0</p>
+        </div>
+      </div>
+    </div>
+    <script>
+      let correctAnswer;
+      let score = 0;
+      let mistakes = 0;
+
+      function getRandomInt(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+      }
+
+      function generateQuestion() {
+        let a = getRandomInt(1, 10);
+        let b = getRandomInt(1, 10);
+        let operators = ["+", "-", "*", "%"];
+        let op = operators[Math.floor(Math.random() * operators.length)];
+
+        if (op === "%") b = getRandomInt(1, 9);
+        let questionText = `${a} ${op} ${b}`;
+        document.getElementById("question").innerText = questionText;
+        correctAnswer = eval(questionText);
+
+        let options = new Set();
+        options.add(correctAnswer);
+        while (options.size < 16) {
+          let wrong = correctAnswer + getRandomInt(-10, 10);
+          if (wrong !== correctAnswer && wrong >= 0) options.add(wrong);
+        }
+
+        let optionsArr = Array.from(options);
+        optionsArr.sort(() => Math.random() - 0.5); // shuffle
+        let optionsDiv = document.getElementById("options");
+        optionsDiv.innerHTML = "";
+        optionsArr.forEach((val) => {
+          let btn = document.createElement("button");
+          btn.innerText = val;
+          btn.addEventListener("click", () => checkAnswer(val));
+          optionsDiv.appendChild(btn);
+        });
+      }
+
+      function checkAnswer(selected) {
+        if (selected === correctAnswer) {
+          score++;
+          alert("✅ To‘g‘ri!");
+        } else {
+          mistakes++;
+          alert(`❌ Xato! To‘g‘ri javob: ${correctAnswer}`);
+        }
+
+        document.getElementById("score").innerText = "To‘g‘ri: " + score;
+        document.getElementById("mistakes").innerText = "Xato: " + mistakes;
+
+        if (score >= 10) {
+          alert("🎉 Tabriklaymiz! Siz g‘olibsiz!");
+          resetGame();
+        } else if (mistakes > score) {
+          alert("😔 O‘yin tugadi, ko‘proq mashq qiling!");
+          resetGame();
+        } else {
+          generateQuestion();
+        }
+      }
+
+      function startGame() {
+        score = 0;
+        mistakes = 0;
+        document.getElementById("score").innerText = "To‘g‘ri: 0";
+        document.getElementById("mistakes").innerText = "Xato: 0";
+        document.getElementById("startArea").style.display = "none";
+        document.getElementById("gameArea").style.display = "block";
+        generateQuestion();
+      }
+
+      function resetGame() {
+        document.getElementById("gameArea").style.display = "none";
+        document.getElementById("startArea").style.display = "block";
+      }
+
+      document.getElementById("startBtn").addEventListener("click", startGame);
+    </script>
+  </body>
+</html> -->
