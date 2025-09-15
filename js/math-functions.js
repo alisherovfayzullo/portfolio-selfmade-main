@@ -21,6 +21,7 @@ export function readyRandimNumbers(arr, res) {
   arr[randomIndex] = res;
   return arr;
 }
+// export function readyRandom
 
 export function calc(expression) {
   let resault = null;
